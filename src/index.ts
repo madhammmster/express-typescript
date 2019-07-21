@@ -1,13 +1,19 @@
 import express, { Application } from 'express';
 import logger from './utils/logger';
+import bodyParser from 'body-parser';
+import { initRoutes } from './routes';
 
 const app: Application = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
-//TODO
-// https://www.coreycleary.me/project-structure-for-an-express-rest-api-when-there-is-no-standard-way/
+
+initRoutes(app);
+
 app.listen(3000, () => {
   logger.info('Example app listening on port 3000!');
 
